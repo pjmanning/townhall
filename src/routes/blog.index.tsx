@@ -1,59 +1,79 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowUpRightIcon } from 'lucide-react'
 
 import { MarketingShell, PageHeader } from '#/components/marketing-shell'
 import { Reveal } from '#/components/motion/reveal'
-import { seoHead } from '#/lib/seo'
+import { Badge } from '#/components/ui/badge'
 import { formatPostDate, posts } from '#/content/blog'
+import { seoHead } from '#/lib/seo'
+import { site } from '#/lib/site'
 
 export const Route = createFileRoute('/blog/')({
   head: () =>
     seoHead({
       title: 'Blog',
-      description: 'Notes on building and shipping with Townhall.',
       path: '/blog',
+      description: `Notes on building and shipping with the ${site.name} stack.`,
     }),
-  component: BlogIndex,
+  component: BlogIndexPage,
 })
 
-function BlogIndex() {
+function BlogIndexPage() {
   return (
     <MarketingShell>
       <PageHeader
         kicker="Writing"
-        title="Notes from the town."
-        description="How we publish civic data, and what we learn when we do."
+        title="Notes from the build."
+        description="Short, specific posts about the decisions inside this stack — and the ones we got wrong first."
       />
 
-      <section className="nj-shell pb-24">
-        <ul className="divide-y divide-border border-y border-border">
-          {posts.map((post, index) => (
-            <Reveal key={post.slug} as="li" delay={index * 0.05}>
-              <Link
-                to="/blog/$slug"
-                params={{ slug: post.slug }}
-                className="group flex flex-col gap-2 py-8 no-underline transition-colors hover:bg-muted/40 md:flex-row md:items-baseline md:gap-10 md:px-4"
-              >
-                <time className="shrink-0 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase md:w-36">
-                  {formatPostDate(post.date)}
-                </time>
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-xl font-semibold text-foreground transition-colors group-hover:text-primary md:text-2xl">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {post.description}
-                  </p>
-                </div>
-                {post.readingMinutes ? (
-                  <span className="shrink-0 text-xs text-muted-foreground">
-                    {post.readingMinutes} min
-                  </span>
-                ) : null}
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
+      <div className="nj-shell pb-20">
+        {posts.length === 0 ? (
+          <p className="text-muted-foreground">
+            No posts yet. Drop an <code className="font-mono text-sm">.mdx</code> file into{' '}
+            <code className="font-mono text-sm">src/content/blog/</code> to publish one.
+          </p>
+        ) : (
+          <ul className="divide-y divide-border border-y border-border">
+            {posts.map((post, index) => (
+              <Reveal as="li" key={post.slug} delay={index * 0.05}>
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
+                  className="group grid gap-4 py-8 no-underline md:grid-cols-[10rem_1fr_auto] md:items-baseline md:gap-8"
+                >
+                  <time
+                    dateTime={post.date}
+                    className="font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase"
+                  >
+                    {formatPostDate(post.date)}
+                  </time>
+
+                  <div>
+                    <h2 className="text-2xl font-semibold text-balance transition-colors group-hover:text-primary">
+                      {post.title}
+                    </h2>
+                    <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground text-pretty">
+                      {post.description}
+                    </p>
+                    {post.tags?.length ? (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {post.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <ArrowUpRightIcon className="hidden size-5 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:text-primary md:block" />
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        )}
+      </div>
     </MarketingShell>
   )
 }
