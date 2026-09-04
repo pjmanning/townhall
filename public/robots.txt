@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# The product shell and auth pages are per-user and never indexed.
+Disallow: /app
+Disallow: /login
+
+# Update the host to match VITE_SITE_URL before launch.
+Sitemap: http://localhost:3000/sitemap.xml

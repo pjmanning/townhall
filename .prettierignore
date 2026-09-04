@@ -1,0 +1,7 @@
+package-lock.json
+pnpm-lock.yaml
+yarn.lockconvex/_generated
+src/routeTree.gen.ts
+.wrangler
+dist
+public/og.png

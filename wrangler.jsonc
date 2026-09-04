@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Rename this before your first deploy — it becomes <name>.<subdomain>.workers.dev.
+  "name": "townhall",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true,
+  },
+  // Public (VITE_*) values are inlined at build time; secrets belong in
+  // `wrangler secret put` or the Convex dashboard, never here.
+  "vars": {},
+}
