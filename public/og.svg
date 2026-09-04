@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="a" cx="18%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#1a6b5c" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#1a6b5c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b" cx="92%" cy="8%" r="62%">
+      <stop offset="0%" stop-color="#3d6f99" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3d6f99" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0v72" fill="none" stroke="#142033" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#eef2f5"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#a)"/>
+  <rect width="1200" height="630" fill="url(#b)"/>
+
+  <g transform="translate(88 92)">
+    <g transform="scale(1.6)" fill="#1a6b5c">
+      <path d="M16 3.5 27 11v3.5H5V11L16 3.5Z"/>
+      <rect x="8" y="14.5" width="16" height="12" rx="1.2" opacity="0.85"/>
+    </g>
+    <text x="72" y="36" font-family="Georgia, serif" font-size="36" font-weight="700" fill="#142033" letter-spacing="-0.5">Townhall</text>
+  </g>
+
+  <text x="88" y="330" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#142033" letter-spacing="-2">See where the</text>
+  <text x="88" y="420" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#1a6b5c" letter-spacing="-2">money goes.</text>
+
+  <text x="88" y="530" font-family="Courier New, monospace" font-size="22" fill="#5b6b7c" letter-spacing="3">BUDGET &#183; STAFF &#183; DEBT &#183; COMMUNITY</text>
+
+  <rect x="88" y="562" width="1024" height="1" fill="#c9d3dd"/>
+</svg>
