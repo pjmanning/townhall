@@ -1,0 +1,18 @@
+---
+description: Day-0 bootstrap and locked stack for this SaaS template
+alwaysApply: true
+---
+
+# Template agent entry
+
+Before writing feature code in this repo:
+
+1. If this checkout is becoming a **new product** (still named Nightjar /
+   `web-template`, or `/app` not wired), follow `BOOTSTRAP.md` end-to-end.
+2. Always follow `AGENTS.md` (TanStack-first, Convex-only DB, Cloudflare host
+   only, no Next.js patterns) and `DESIGN.md` before UI work.
+3. Required for the product shell: `VITE_CONVEX_URL` + Clerk
+   (`VITE_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, Convex
+   `CLERK_JWT_ISSUER_DOMAIN`). Optional integrations must degrade, never crash.
+4. Use `npx convex dev` in development — never `npx convex deploy` during setup.
+5. Finish with `pnpm run check` (and `pnpm run build` if you touched routes/SEO).
