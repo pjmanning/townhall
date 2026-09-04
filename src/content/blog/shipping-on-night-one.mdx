@@ -1,0 +1,76 @@
+---
+title: 'Shipping on night one'
+description: 'Why the first evening of a project should be spent on the idea, not on wiring auth to a database to a payment processor for the ninth time.'
+date: '2026-01-14'
+author: 'The Nightjar team'
+tags: ['engineering', 'product']
+readingMinutes: 6
+---
+
+Every new product starts the same way. You have an idea at 9pm, you run `pnpm create`, and by
+midnight you are not building the idea — you are reading a migration guide about session cookies.
+
+The plumbing is not hard. It is just _long_. Auth, a database, a billing loop, transactional email,
+a marketing page that does not embarrass you, an analytics pixel, an error reporter. None of it is
+interesting, all of it is required, and it is almost identical in every product you will ever build.
+
+## The cost of starting from zero
+
+Here is the honest accounting for a solo developer, from empty directory to something a stranger
+could pay for:
+
+| Piece                             | Realistic first pass |
+| --------------------------------- | -------------------- |
+| Auth + session handling           | 1–2 days             |
+| Database schema + access rules    | 1 day                |
+| Stripe checkout, portal, webhooks | 2–3 days             |
+| Marketing site with real SEO      | 2 days               |
+| Email, analytics, error tracking  | 1 day                |
+| Deployment and environments       | 1 day                |
+
+That is over a week before the first line of product code. Worse, it is a week you will spend again
+on the next project, and you will make slightly different decisions each time, so nothing you learn
+compounds.
+
+## What "done" should mean
+
+A starter earns its keep when every integration is either finished or _honestly labelled_. The rule
+we hold this template to:
+
+> If a key is missing, the feature degrades. It never crashes, and it never pretends to work.
+
+Concretely, that means a fresh clone with only Convex and Clerk configured still builds, still
+prerenders every marketing page, and still renders the pricing page — the upgrade button just tells
+you Stripe is not configured yet.
+
+```ts
+// convex/stripe.ts
+function getStripe(): Stripe | null {
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) return null
+  return new Stripe(key, { apiVersion: '2025-10-29.clover' })
+}
+```
+
+Three lines, and the difference between a template you can run and a template you have to finish
+before you can run it.
+
+## Pick a stack and stop relitigating it
+
+The second thing a starter buys you is the end of the debate. This one is settled:
+
+- **TanStack Start** for the app — routing, data, forms and the server runtime from one family.
+- **Convex** as the only database. There is no second store to keep in sync.
+- **Cloudflare Workers** as the host. It serves the app; it is not a backend.
+- **Clerk** for identity, so the same accounts work when a native client shows up later.
+- **Stripe** for subscriptions on the web.
+
+You can disagree with any of these. What you should not do is rediscover the tradeoffs at 11pm on a
+Tuesday while you are trying to validate an idea.
+
+## The part that is actually yours
+
+Strip out the plumbing and what remains is small: a few screens, a data model, and the specific
+thing you believe about the problem. That is the part worth your first evening.
+
+Everything else is in this repository already.
